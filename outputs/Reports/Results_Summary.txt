@@ -1,0 +1,14 @@
+Interpretation
+
+Based on the analysis, we can interpret the performance of the models:
+
+est Performing Model: The Random Forest model generally performed best across accuracy and F1 score, indicating a better balance between precision and recall for both classes. This is often the case with ensemble methods.
+
+Why Random Forest Performs Better: Random Forest is an ensemble learning method that builds multiple decision trees and merges their predictions. This approach helps in:
+    Reduced Overfitting**: By averaging the predictions of many trees, it reduces the risk of overfitting that a single decision tree might have.
+    Robustness: It is less sensitive to noisy data and handles high-dimensional data well.
+    Feature Importance: It can also provide insights into feature importance, which can be valuable for understanding the underlying factors contributing to churn.
+
+      Limitations of Other Models:
+               Logistic Regression: While a good baseline, Logistic Regression assumes a linear relationship between features and the log-odds of the target variable. It might struggle with complex, non-linear relationships present in the data.
+     K-Nearest Neighbors (KNN): KNN is a non-parametric, instance-based learning algorithm. Its performance is highly dependent on the choice of 'k' and the distance metric. It can be computationally expensive for large datasets and sensitive to irrelevant features or the scale of features (though scaling was applied here). It also struggles with high-dimensional data, often referred to as the 'curse of dimensionality'.
