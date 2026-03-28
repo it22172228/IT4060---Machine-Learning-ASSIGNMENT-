@@ -1,0 +1,2 @@
+Algorithm,Accuracy,Precision,Recall,F1-Score,ROC-AUC,Train Size,Test Size
+Logistic Regression,0.7402,0.5069,0.7861,0.6164,0.8414,5634,1409
