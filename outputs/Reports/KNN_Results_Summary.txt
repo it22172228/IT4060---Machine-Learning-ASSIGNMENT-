@@ -1,0 +1,72 @@
+# KNN Results Summary for Customer Churn Prediction
+
+## Overview
+This document provides a detailed explanation of the K-Nearest Neighbors (KNN) component implemented in the KNN_mlassignment_3.ipynb notebook for predicting customer churn using the Telco customer churn dataset. The KNN model achieved an overall accuracy of 79.28% on the test set, demonstrating effective performance in identifying customers likely to churn.
+
+Practically, the KNN approach excels in customer churn prediction by leveraging similarity-based learning, where customer profiles are compared to historical data to forecast churn risk. This method is particularly effective for telecom datasets with diverse customer behaviors, achieving reliable predictions without assuming linear relationships. 
+In a real-time environment, the integrated interactive tool allows customer service representatives to input new customer details and instantly receive churn probability estimates, enabling proactive retention strategies such as targeted offers or personalized communications to reduce churn rates.
+
+## Parts Explanation
+
+### 1. Data Loading and Preprocessing
+- **Dataset Loading**: The Telco customer churn dataset (Telco_customer_churn.xlsx) was loaded, containing 7,043 customer records with 33 attributes.
+- **Data Cleaning**: Column names were standardized, 'TotalCharges' was converted to numeric format with missing values filled using the median, and irrelevant columns (e.g., 'CustomerID', 'ChurnLabel', 'ChurnScore', 'ChurnReason', location-based columns) were dropped.
+- **Categorical Encoding**: All categorical variables were encoded to numeric format using LabelEncoder to prepare for KNN distance calculations.
+
+### 2. Feature Selection and Scaling
+- **Feature Selection**: SelectKBest with f_classif was used to select the top 11 features based on ANOVA F-statistic scores. The top 5 features for real-time input were identified as: ['Contract', 'TenureMonths', 'OnlineSecurity', 'TechSupport', 'Dependents'].
+- **Class Balancing**: No SMOTE was applied to maintain the original class distribution.
+- **Scaling**: MinMaxScaler was used to normalize features between 0 and 1, which is optimal for KNN distance-based calculations.
+- **Dimensionality Reduction**: No PCA was applied to retain all selected features for maximum information.
+
+### 3. Model Training and Hyperparameter Tuning
+- **Algorithm**: K-Nearest Neighbors classifier was used, which predicts based on the majority vote of the k nearest neighbors.
+- **Hyperparameter Tuning**: GridSearchCV was employed with the following parameters:
+  - n_neighbors: Range from 1 to 50 (odd numbers)
+  - weights: ['uniform', 'distance']
+  - metric: ['euclidean', 'manhattan']
+  - Scoring: 'accuracy'
+- **Best Hyperparameters**: {'metric': 'manhattan', 'n_neighbors': 43, 'weights': 'uniform'}
+- **Training**: The model was trained on the preprocessed training data with 5-fold cross-validation.
+
+### 4. Model Evaluation
+- **Evaluation Metrics**: Accuracy, Precision, Recall, F1-Score, Confusion Matrix, ROC Curve, and Probability Distribution were calculated.
+- **4-Panel Visualization**: 
+  - Confusion Matrix: Shows true positives, true negatives, false positives, and false negatives.
+  - ROC Curve: Plots True Positive Rate vs. False Positive Rate with AUC score.
+  - Metrics Bar Chart: Visualizes Accuracy, Precision, Recall, and F1-Score.
+  - Probability Distribution: Histogram of predicted probabilities for churned and non-churned classes.
+- **Output Saved**: The evaluation plot was saved as 'KNN_Churn_Final_Evaluation.png'.
+
+### 5. Real-Time Prediction Tool
+- **Interactive Tool**: A diagnostic tool that takes user inputs for the top 5 prominent features.
+- **Prediction Process**: Applies the same preprocessing pipeline, finds 5 nearest neighbors using the trained KNN model, and calculates churn probability based on majority vote.
+- **Output**: Displays the 5 nearest neighbors' key attributes, churn probability, and final prediction (High Risk or Loyal).
+
+## Results Explanation
+
+### Performance Metrics
+- **Overall Accuracy**: 79.28%
+- **Classification Report**:
+  - Class 0 (Not Churn): Precision: 0.85, Recall: 0.88, F1-Score: 0.86, Support: 1035
+  - Class 1 (Churn): Precision: 0.62, Recall: 0.56, F1-Score: 0.59, Support: 374
+  - Macro Average: Precision: 0.73, Recall: 0.72, F1-Score: 0.73
+  - Weighted Average: Precision: 0.79, Recall: 0.79, F1-Score: 0.79
+
+### Confusion Matrix
+- True Negatives (Not Churn, Not Churn): 911
+- False Positives (Not Churn, Churn): 124
+- False Negatives (Churn, Not Churn): 165
+- True Positives (Churn, Churn): 209
+
+### ROC Curve
+- AUC Score: 0.84 (indicating good discriminatory ability)
+
+### Key Insights
+- The model performs better in predicting non-churn customers (higher precision and recall for class 0).
+- The Manhattan distance metric and 43 neighbors were optimal for this dataset.
+- No SMOTE improved performance by avoiding synthetic data introduction.
+- The real-time tool provides interpretable predictions by showing nearest neighbors.
+
+## Conclusion
+The KNN model successfully predicts customer churn with 79.28% accuracy, offering a balance between interpretability and performance. The implementation includes comprehensive preprocessing, hyperparameter optimization, and evaluation, making it suitable for practical deployment in customer retention strategies. The real-time prediction tool enhances usability by providing neighbor-based explanations for predictions.
