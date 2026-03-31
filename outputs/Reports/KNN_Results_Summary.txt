@@ -14,7 +14,7 @@ In a real-time environment, the integrated interactive tool allows customer serv
 - **Categorical Encoding**: All categorical variables were encoded to numeric format using LabelEncoder to prepare for KNN distance calculations.
 
 ### 2. Feature Selection and Scaling
-- **Feature Selection**: SelectKBest with f_classif was used to select the top 11 features based on ANOVA F-statistic scores. The top 5 features for real-time input were identified as: ['Contract', 'TenureMonths', 'OnlineSecurity', 'TechSupport', 'Dependents'].
+- **Feature Selection**: SelectKBest with f_class if was used to select the top 11 features based on ANOVA F-statistic scores. The top 5 features for real-time input were identified as: ['Contract', 'TenureMonths', 'OnlineSecurity', 'TechSupport', 'Dependents'].
 - **Class Balancing**: No SMOTE was applied to maintain the original class distribution.
 - **Scaling**: MinMaxScaler was used to normalize features between 0 and 1, which is optimal for KNN distance-based calculations.
 - **Dimensionality Reduction**: No PCA was applied to retain all selected features for maximum information.
